@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+.tab1-container .card-container .card .card--icons svg{
+  fill: #796b0b;
+  font-size: 22px;
+} 
+
