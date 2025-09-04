@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { Menu, X } from "lucide-react"; 
 import hintsLogo from "../assets/hintsLogo.png";
-
+import {Link} from 'react-scroll'
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-
   return (
     <header className="w-full bg-white shadow-md ">
       <nav className="flex justify-around items-center px-6 py-4 ">
-
         <div className="flex items-center space-x-10">
           <img
             src={hintsLogo}
@@ -16,8 +14,6 @@ const Header = () => {
             className="h-20 w-auto object-contain"
           />
         </div>
-
-
         <ul className="hidden md:flex items-center gap-8 text-lg font-medium z-10">
           <li>
             <a href="#" className="text-red-500 hover:text-red-600">
@@ -25,25 +21,24 @@ const Header = () => {
             </a>
           </li>
           <li>
-            <a href="#" className="hover:text-red-600 ">How It Works</a>
+            <Link to="HIW" smooth={true} duration={800} className="hover:text-red-600 ">How It Works</Link>
           </li>
           <li>
-            <a href="#" className="hover:text-red-600">Apps</a>
+            <Link to="Apps" className="hover:text-red-600">Apps</Link>
           </li>
           <li>
-            <a href="#" className="hover:text-red-600 z-50">Science</a>
+            <Link to="Science" smooth={true} duration={800} className="hover:text-red-600 z-50">Science</Link>
           </li>
           <li>
-            <a href="#" className="hover:text-red-600">Awards</a>
+            <Link to="Awards" className="hover:text-red-600">Awards</Link>
           </li>
           <li>
-            <a href="#" className="hover:text-red-600">Blog</a>
+            <Link to="Blog" className="hover:text-red-600">Blog</Link>
           </li>
           <li>
-            <a href="#" className="hover:text-red-600">Contact</a>
+            <Link to="contactUs" smooth={true} duration={800} className="hover:text-red-600">Contact</Link>
           </li>
         </ul>
-
     
         <button
           className="md:hidden p-2 rounded focus:outline-none"
@@ -52,8 +47,6 @@ const Header = () => {
           {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </nav>
-
-
       {isOpen && (
         <div className="md:hidden bg-white px-6 pb-4 shadow-md">
           <ul className="flex flex-col gap-4 text-lg font-medium">
@@ -72,5 +65,4 @@ const Header = () => {
     </header>
   );
 };
-
 export default Header;
