@@ -8,11 +8,13 @@ import {
   FaLinkedinIn,
   FaYoutube
 } from 'react-icons/fa6';
+
 const FooterSection = ({ title, items }) => {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="w-full md:w-auto">
-
+      
       <div
         className="md:hidden flex justify-between items-center py-3 border-b cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
@@ -33,16 +35,15 @@ const FooterSection = ({ title, items }) => {
     </div>
   );
 };
+
 const Footer = () => {
   return (
     <div className="flex flex-col text-black">
-
       <div className="flex justify-center items-center w-full h-[120px] bg-white mb-5">
         <img src={logo} alt="HintsWork Logo" className="h-20" />
       </div>
 
       <div className="flex flex-col justify-between w-full bg-[#f5f2e1] px-6 py-8">
-
         <div className="grid md:grid-cols-4 gap-8 w-full max-w-6xl mx-auto">
           <FooterSection
             title="Company"
@@ -85,7 +86,7 @@ const Footer = () => {
             ]}
           />
         </div>
-        {/* Social Icons */}
+
         <div className="flex justify-center space-x-6 text-2xl mt-10">
           <FaXTwitter />
           <FaFacebookF />
@@ -94,9 +95,9 @@ const Footer = () => {
           <FaLinkedinIn />
           <FaYoutube />
         </div>
-        {/* Divider */}
+
         <div className="w-full border-t border-gray-400 my-6"></div>
-        {/* Copyright */}
+
         <div className="text-center text-base text-gray-700">
           © 2025 hints work
         </div>
@@ -104,4 +105,5 @@ const Footer = () => {
     </div>
   );
 };
+
 export default Footer;
