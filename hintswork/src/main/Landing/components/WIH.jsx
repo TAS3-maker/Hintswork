@@ -1,20 +1,17 @@
 import React from 'react';
 import phoneImg from '../assets/phoneImg.png';
-import messageDoodle from '../assets/messageIcon.png'; // Add your doodle image
-import checkmarkIcon from '../assets/checkmark.png'; // Add your checkmark image`
+import messageDoodle from '../assets/messageIcon.png'; 
+import checkmarkIcon from '../assets/checkmark.png'; 
 const WIH = () => {
   return (
     <div className="w-full px-4 md:px-16 py-10">
-      {/* Heading */}
-      <h1 className="text-4xl md:text-5xl font-bold text-center mb-10">
+      <h1 className="text-4xl mt-20  md:text-5xl font-bold text-center mb-10">
         What is <span className="text-red-500">HintsWork?</span>
       </h1>
-      {/* Main content */}
       <div className="flex flex-col md:flex-row items-center md:items-start justify-center gap-10 md:gap-20">
-        {/* Phone with yellow bg shape */}
         <div className="relative flex-shrink-0 flex items-center justify-center">
           <div
-            className="absolute left-0 top-1/2 -translate-y-1/2 -z-10"
+            className="hidden sm:block absolute overflow-x-hidden  top-1/2 -translate-y-1/2 -z-10"
             style={{
               width: '340px',
               height: '340px',
@@ -33,7 +30,7 @@ const WIH = () => {
           <img
             src={phoneImg}
             alt="HintsWork App Phone"
-            className="w-[260px] md:w-[328px] h-[458px] drop-shadow-2xl relative"
+            className="w-[260px] md:w-[328px] h-[458px] drop-shadow-2xl md:mt-30 relative"
             /* 396235742_11517260 1 */
 
 // position: absolute;
@@ -47,7 +44,6 @@ const WIH = () => {
 
           />
         </div>
-        {/* Right content */}
         <div className="flex-1 max-w-xl">
           <h2 className="text-2xl font-bold mb-2">Wellness Made Simple</h2>
           <p className="text-gray-600 text-base md:text-lg mb-4">
@@ -61,7 +57,7 @@ const WIH = () => {
             <img
             src={messageDoodle}
             alt="Message Doodle"
-            className="absolute w-24 ml-70 pointer-events-none opacity-90"
+            className=" hidden sm:block  absolute w-24 md:ml-20 ml-60 pointer-events-none opacity-90"
             style={{ zIndex: -1 }}
           />
             <li className="flex items-start z-10">
@@ -77,10 +73,9 @@ const WIH = () => {
               <span><b>Human, Not Heavy:</b> no calorie obsession, no shaming—just smart</span>
             </li>
           </ul>
-          <button className="bg-red-500 text-white px-7 py-3 rounded-md text-lg font-semibold shadow-md">
+          <button className="bg-red-500 ml-[90px] text-white px-7 py-3 md:px-[30%] md:ml-10 rounded-md text-lg font-semibold shadow-md">
             See Rewards
           </button>
-          {/* Message doodle image */}
           
         </div>
       </div>
