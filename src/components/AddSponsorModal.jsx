@@ -31,8 +31,8 @@ const AddSponsorModal = ({ isOpen, onClose, onSave }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="absolute inset-0 z-40 bg-[#fffbefa6] bg-opacity-30 flex justify-center items-center">
-      <div className="bg-[#FFFAF4] w-full max-w-[690px] rounded-[14px] px-11 py-12 shadow-md relative">
+    <div className="fixed inset-0 z-40 bg-[#fffbefa6] bg-opacity-30 flex justify-center items-center overflow-y-auto p-4">
+    <div className="bg-[#FFFAF4] w-full max-w-[690px] rounded-[14px] px-6 sm:px-11 py-8 sm:py-12 shadow-lg relative max-h-screen overflow-y-auto">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-semibold text-[#786A08]">Add Sponsors</h2>
           <div onClick={onClose} className="text-3xl font-bold text-[#786A08] cursor-pointer">

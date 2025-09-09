@@ -50,8 +50,8 @@ const EditBrandModal = ({ isOpen, onClose, onSubmit, initialData = {} }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-center items-center bg-[#fffbefa6] bg-opacity-30">
-      <div className="bg-[#FFFBEF] w-full max-w-[690px] rounded-[14px] p-11 shadow-lg relative">
+   <div className="fixed inset-0 z-40 bg-[#fffbefa6] bg-opacity-30 flex justify-center items-center overflow-y-auto p-4">
+    <div className="bg-[#FFFAF4] w-full max-w-[690px] rounded-[14px] px-6 sm:px-11 py-8 sm:py-12 shadow-lg relative max-h-screen overflow-y-auto">
 
        
         <div className="flex justify-between items-center mb-5">
