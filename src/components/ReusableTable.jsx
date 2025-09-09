@@ -38,21 +38,21 @@ const ReusableTable = ({
   };
 
   const handleOpenDeleteModal = (index) => {
-    setDeleteIndex(index); // Set the index of the row to be deleted
-    setIsDeleteModalVisible(true); // Open the delete confirmation modal
+    setDeleteIndex(index); 
+    setIsDeleteModalVisible(true); 
   };
 
   const handleDeleteConfirm = () => {
     if (deleteIndex !== null && onDelete) {
-      onDelete(deleteIndex); // Call the onDelete prop function
+      onDelete(deleteIndex); 
     }
-    setIsDeleteModalVisible(false); // Close the modal
-    setDeleteIndex(null); // Reset the index
+    setIsDeleteModalVisible(false); 
+    setDeleteIndex(null); 
   };
 
   const handleDeleteCancel = () => {
-    setIsDeleteModalVisible(false); // Close the modal without deleting
-    setDeleteIndex(null); // Reset the index
+    setIsDeleteModalVisible(false); 
+    setDeleteIndex(null);
   };
 
   return (
@@ -62,7 +62,7 @@ const ReusableTable = ({
           <thead>
             <tr className="bg-[#F8DD8A] text-[#786A08]">
               {hasSerialNumberColumn && (
-                <th className="px-4 py-[28px] text-center text-[#645200] text-2xl font-medium leading-5">
+                <th className="px-2 py-3.5 md:px-4 md:py-[28px] text-center text-[#645200] text-[18px] md:text-2xl font-medium leading-5">
                   Sr. No.
                 </th>
               )}
@@ -70,14 +70,14 @@ const ReusableTable = ({
               {columns.map((col, index) => (
                 <th
                   key={index}
-                  className="px-4 py-[28px] text-center text-[#645200] text-2xl font-medium leading-5"
+                  className="px-2 py-3.5 md:px-4 md:py-[28px] text-center text-[#645200] text-[18px] md:text-2xl font-medium leading-5"
                 >
                   {col.header}
                 </th>
               ))}
 
               {(onEdit || onDelete) && (
-                <th className="px-4 py-[28px] text-center text-[#645200] text-2xl font-medium leading-5">
+                <th className="px-2 py-3.5 md:px-4 md:py-[28px] text-center text-[#645200] text-[18px] md:text-2xl font-medium leading-5">
                   Action
                 </th>
               )}
@@ -89,7 +89,7 @@ const ReusableTable = ({
               <tr>
                 <td
                   colSpan={columns.length + (hasSerialNumberColumn ? 2 : 1)} 
-                  className="text-center py-[28px] text-[#645200]"
+                  className="text-center py-3.5 md:py-[28px] text-[#645200]"
                 >
                   No data available.
                 </td>
@@ -109,7 +109,7 @@ const ReusableTable = ({
                     style={{ backgroundColor: bgColor }}
                   >
                     {hasSerialNumberColumn && (
-                      <td className="px-4 py-[28px] text-center text-[#645200]">
+                      <td className="px-2 py-3.5 md:px-4 md:py-[28px] text-center text-[#645200]">
                         {actualIndex + 1}
                       </td>
                     )}
@@ -117,7 +117,7 @@ const ReusableTable = ({
                     {columns.map((col, colIndex) => (
                       <td
                         key={colIndex}
-                        className="px-4 py-[28px] text-[#645200] text-xl font-medium"
+                        className="px-2 py-3.5 md:px-4 md:py-[28px] text-[#645200] text-[16px] md:text-xl font-medium"
                       >
                         {col.accessor === 'status' && hasStatusColumn ? (
                           <span
@@ -139,7 +139,7 @@ const ReusableTable = ({
                     ))}
 
                     {(onEdit || onDelete) && (
-                      <td className="px-4 py-[28px] space-x-4 flex justify-center items-center">
+                      <td className="px-2 py-3.5 md:px-4 md:py-[28px] space-x-4 flex justify-center items-center">
                         {onEdit && (
                           <div
                             onClick={() => onEdit(actualIndex)}
@@ -154,7 +154,7 @@ const ReusableTable = ({
                         )}
                         {onDelete && (
                           <div
-                            onClick={() => handleOpenDeleteModal(actualIndex)} // Open delete modal
+                            onClick={() => handleOpenDeleteModal(actualIndex)} 
                             className="text-red-600 hover:text-red-800"
                           >
                             <img
@@ -177,11 +177,11 @@ const ReusableTable = ({
               <tr className="text-[#645200] text-xl font-medium hover:bg-[#FFFBEF] text-center">
                 <td colSpan={columns.length + (hasSerialNumberColumn ? 2 : 1)}>
                   <div className="flex justify-center items-center space-x-2 mt-5 mb-5 text-[#786A08]">
-                    {/* Prev Button */}
+                   
                     <div
                       onClick={handlePrev}
                       disabled={currentPage === 1}
-                      className={`shadow-md px-3 py-1 rounded text-[#645200] text-xl font-medium ${
+                      className={`shadow-md px-3 py-1 rounded text-[#645200] text-[16px] md:text-xl font-medium ${
                         currentPage === 1
                           ? 'bg-[#FFFBEF] cursor-not-allowed'
                           : 'bg-[#FFE074] hover:bg-[#E3B512] cursor-pointer'
@@ -190,10 +190,10 @@ const ReusableTable = ({
                       Prev
                     </div>
 
-                    {/* Page Numbers */}
+                   
                     <div
                       onClick={() => handlePageChange(1)}
-                      className={`shadow-md px-4 py-1 rounded text-[#645200] text-xl font-medium cursor-pointer ${
+                      className={`shadow-md px-4 py-1 rounded text-[#645200] text-[16px] md:text-xl font-medium cursor-pointer ${
                         currentPage === 1
                           ? 'bg-[#FFE074] hover:bg-[#E3B512] font-semibold'
                           : 'bg-[#FFFBEF] hover:bg-[#E3B512]'
@@ -204,7 +204,7 @@ const ReusableTable = ({
                     {totalPages > 1 && (
                       <div
                         onClick={() => handlePageChange(2)}
-                        className={`shadow-md px-4 py-1 rounded text-[#645200] text-xl font-medium cursor-pointer ${
+                        className={`shadow-md px-4 py-1 rounded text-[#645200] text-[16px] md:text-xl font-medium cursor-pointer ${
                           currentPage === 2
                             ? 'bg-[#FFE074] hover:bg-[#E3B512] font-semibold'
                             : 'bg-[#FFFBEF] hover:bg-[#E3B512]'
@@ -214,11 +214,11 @@ const ReusableTable = ({
                       </div>
                     )}
 
-                    {/* Next Button */}
+                   
                     <div
                       onClick={handleNext}
                       disabled={currentPage === totalPages}
-                      className={`shadow-md px-3 py-1 rounded text-[#645200] text-xl font-medium ${
+                      className={`shadow-md px-3 py-1 rounded text-[#645200] text-[16px] md:text-xl font-medium ${
                         currentPage === totalPages
                           ? 'bg-[#FFFBEF] cursor-not-allowed'
                           : 'bg-[#FFE074] hover:bg-[#E3B512] cursor-pointer'
@@ -234,7 +234,7 @@ const ReusableTable = ({
         </table>
       </div>
 
-      {/* Delete Confirmation Modal */}
+      
       {isDeleteModalVisible && (
         <div className="flex justify-center items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  bg-opacity-50 rounded-lg w-full max-w-lg z-10">
           <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-[350px]">

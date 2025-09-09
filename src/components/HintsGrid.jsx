@@ -27,7 +27,7 @@ const HintsGrid = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-3 grid-rows-2 gap-[17px] p-4 rounded-md">
+    <div className="grid grid-cols-3 grid-rows-2 gap-[17px] md:p-4 rounded-md">
       {hintData.map((hint, index) => (
         <div
           key={index}

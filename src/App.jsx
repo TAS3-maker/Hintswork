@@ -15,12 +15,14 @@ const App = () => {
 
   return (
     <Router>
-      <div className="flex h-screen w-full">
+      <div className="flex h-screen overflow-hidden">
        
         <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-        <div className="w-full">
+        <div className="flex flex-col flex-1 overflow-hidden">
           <Header toggleSidebar={toggleSidebar} />
+          <div className='flex-1 overflow-y-auto'>
           <TabContent />
+          </div>
         </div>
       </div>
     </Router>

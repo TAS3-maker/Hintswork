@@ -1,16 +1,30 @@
-import React, { useState } from 'react';
-import { FaArrowLeft, FaTrash } from 'react-icons/fa';
-import Arrowicon from '../assets/arrow.svg';
+import React, { useState, useEffect } from 'react';
+import { FaTrash } from 'react-icons/fa';
+import { RxCrossCircled } from 'react-icons/rx';
 
-const AddBrandForm = ({ onSubmit, onCancel, initialData = {} }) => {
+const EditBrandModal = ({ isOpen, onClose, onSubmit, initialData = {} }) => {
   const [brandForm, setBrandForm] = useState({
-    brandName: initialData.brandName || '',
-    totalHints: initialData.totalHints || '',
-    hours: initialData.hours || '',
-    shortDescription: initialData.shortDescription || '',
-    isUnderHintWorks: initialData.isUnderHintWorks || false,
-    image: initialData.image || null,
+    brandName: '',
+    totalHints: '',
+    hours: '',
+    shortDescription: '',
+    isUnderHintWorks: false,
+    image: null,
   });
+
+  
+  useEffect(() => {
+    if (isOpen) {
+      setBrandForm({
+        brandName: initialData.brandName || '',
+        totalHints: initialData.totalHints || '',
+        hours: initialData.hours || '',
+        shortDescription: initialData.shortDescription || '',
+        isUnderHintWorks: initialData.isUnderHintWorks || false,
+        image: initialData.image || null,
+      });
+    }
+  }, [isOpen, initialData]);
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
@@ -29,26 +43,29 @@ const AddBrandForm = ({ onSubmit, onCancel, initialData = {} }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(brandForm); 
+    onSubmit(brandForm);
+    onClose();
   };
 
-  return (
-    <div className="p-6 space-y-6">
-      
+  if (!isOpen) return null;
 
-      <div className="bg-[#FFFBEF] p-11 rounded-lg shadow-md w-full max-w-[690px] mx-auto">
+  return (
+    <div className="fixed inset-0 z-50 flex justify-center items-center bg-[#fffbefa6] bg-opacity-30">
+      <div className="bg-[#FFFBEF] w-full max-w-[690px] rounded-[14px] p-11 shadow-lg relative">
+
+       
         <div className="flex justify-between items-center mb-5">
-            <div className="flex items-center gap-2.5">
-                <img className="cursor-pointer text-xl text-[#786A08]" src={Arrowicon} alt='arrowicon' onClick={onCancel}/>
-            
-            <h2 className="text-2xl font-semibold text-[#786A08]">Add Brand</h2>
-            </div>
+          <h2 className="text-2xl font-semibold text-[#786A08]">Edit Brand</h2>
+          <div onClick={onClose} className="text-3xl text-[#786A08] cursor-pointer">
+            <RxCrossCircled />
+          </div>
         </div>
 
-
+       
         <form onSubmit={handleSubmit} className="space-y-4">
+          
           <div className="flex flex-col gap-2">
-            <label className="text-[18.36px] font-raleway font-semibold text-[#786A08] mb-1.5">Brand Name</label>
+            <label className="text-[18.36px] font-semibold text-[#786A08]">Brand Name</label>
             <input
               type="text"
               name="brandName"
@@ -58,9 +75,10 @@ const AddBrandForm = ({ onSubmit, onCancel, initialData = {} }) => {
             />
           </div>
 
+          
           <div className="flex gap-4">
             <div className="flex flex-col gap-2 w-1/2">
-              <label className="text-[18.36px] font-raleway font-semibold text-[#786A08] mb-1.5">Total No. of Hints</label>
+              <label className="text-[18.36px] font-semibold text-[#786A08]">Total No. of Hints</label>
               <input
                 type="number"
                 name="totalHints"
@@ -71,7 +89,7 @@ const AddBrandForm = ({ onSubmit, onCancel, initialData = {} }) => {
             </div>
 
             <div className="flex flex-col gap-2 w-1/2">
-              <label className="text-[18.36px] font-raleway font-semibold text-[#786A08] mb-1.5">Hours</label>
+              <label className="text-[18.36px] font-semibold text-[#786A08]">Hours</label>
               <input
                 type="number"
                 name="hours"
@@ -82,30 +100,34 @@ const AddBrandForm = ({ onSubmit, onCancel, initialData = {} }) => {
             </div>
           </div>
 
+          
           <div className="flex flex-col gap-2">
-            <label className="text-[18.36px] font-raleway font-semibold text-[#786A08] mb-1.5">Short Description</label>
+            <label className="text-[18.36px] font-semibold text-[#786A08]">Short Description</label>
             <textarea
               name="shortDescription"
               value={brandForm.shortDescription}
               onChange={handleFormChange}
-              className="p-2 px-1.5 border border-[#786A08] rounded-[10px] bg-[#FFFAF4]"
+              className="p-2 border border-[#786A08] rounded-[10px] bg-[#FFFAF4]"
             />
           </div>
 
+         
           <div className="flex items-center gap-2">
-            
             <input
               type="checkbox"
               name="isUnderHintWorks"
               checked={brandForm.isUnderHintWorks}
-              onChange={(e) => setBrandForm({ ...brandForm, isUnderHintWorks: e.target.checked })}
+              onChange={(e) =>
+                setBrandForm({ ...brandForm, isUnderHintWorks: e.target.checked })
+              }
               className="h-5 w-5 border border-[#786A08] rounded-[10px] bg-[#FFFAF4]"
             />
-            <label className="text-[18.36px] font-raleway font-semibold text-[#786A08] mb-1.5">Is under Hint Work?</label>
+            <label className="text-[18.36px] font-semibold text-[#786A08]">Is under Hint Work?</label>
           </div>
 
+          
           <div className="flex flex-col gap-2">
-            <label className="text-[18.36px] font-raleway font-semibold text-[#786A08] mb-1.5">Image</label>
+            <label className="text-[18.36px] font-semibold text-[#786A08]">Image</label>
             <div className="flex items-center gap-2">
               <input
                 type="file"
@@ -122,16 +144,16 @@ const AddBrandForm = ({ onSubmit, onCancel, initialData = {} }) => {
             </div>
           </div>
 
+         
           <div className="flex justify-center gap-5 mt-11">
-            <div
+            <button
               type="submit"
-              className="px-6 py-3 text-[22.93px] text-center w-full max-w-[192px] bg-gradient-to-b from-[#FFE074] to-[#E3B512] text-[#786A08] font-bold rounded-sm cursor-pointer"
+              className="px-6 py-3 text-[22.93px] w-full max-w-[192px] bg-gradient-to-b from-[#FFE074] to-[#E3B512] text-[#786A08] font-bold rounded-sm"
             >
               Save
-            </div>
+            </button>
             <div
-              type="button"
-              onClick={onCancel}
+              onClick={onClose}
               className="px-6 py-3 text-[22.93px] text-center w-full max-w-[192px] bg-gradient-to-b from-[#FFE074] to-[#E3B512] text-[#786A08] font-bold rounded-sm cursor-pointer"
             >
               Cancel
@@ -143,4 +165,4 @@ const AddBrandForm = ({ onSubmit, onCancel, initialData = {} }) => {
   );
 };
 
-export default AddBrandForm;
+export default EditBrandModal;

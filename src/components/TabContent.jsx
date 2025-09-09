@@ -11,7 +11,7 @@ import Header from './Header';
 const TabContent = () => {
   return (
     <div className="content-container flex-1 w-full">
-      <div className="content px-[34px] pt-[44px] flex-1 overflow-y-auto h-[100vh] ">
+      <div className="content px-4 pt-4 md:px-[34px] md:pt-[44px] flex-1 overflow-y-auto">
        
         <Routes>
           <Route path="/" element={<Tab1 />} />

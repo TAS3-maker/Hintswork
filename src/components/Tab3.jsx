@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ReusableTable from './ReusableTable';
+import AddBrandModal from './AddBrandModal'; 
 
 const Tab3 = () => {
   const [data, setData] = useState([
@@ -11,10 +12,12 @@ const Tab3 = () => {
     { brandName: 'Brand 6', description: 'This is Brand 6', status: 'Inactive', id: 6 },
   ]);
 
+  const [isModalOpen, setIsModalOpen] = useState(false); 
+
   const columns = [
     { header: 'Brand Name', accessor: 'brandName' },
     { header: 'Description', accessor: 'description' },
-    { header: 'Status', accessor: 'status' }, // Status column
+    { header: 'Status', accessor: 'status' }, 
   ];
 
   const handleEdit = (index) => {
@@ -27,23 +30,26 @@ const Tab3 = () => {
   };
 
   const handleAddBrand = () => {
-    const newBrand = {
-      brandName: `Brand ${data.length + 1}`,
-      description: `This is Brand ${data.length + 1}`,
+    setIsModalOpen(true); 
+  };
+
+  const handleSaveBrand = (newBrand) => {
+    const updatedBrand = {
+      brandName: newBrand.brandName,
+      description: newBrand.description,
       status: Math.random() > 0.5 ? 'Active' : 'Inactive',
       id: data.length + 1,
     };
-
-    setData([...data, newBrand]);
+    setData([...data, updatedBrand]);
   };
 
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center mb-6">
-        <div className="text-4xl md:text-5xl font-semibold text-[#645200]">Brand</div>
+        <div className="text-2xl md:text-3xl font-semibold text-[#645200]">Brand</div>
         <div
           onClick={handleAddBrand}
-          className="px-6 py-3 font-semibold bg-gradient-to-b from-[#FFE074] to-[#E3B512] text-white text-xl rounded cursor-pointer hover:bg-gradient-to-b hover:from-[#E3B512] hover:to-[#FFE074] hover:border-[#786A08] transition-all duration-200 ease-in-out"
+          className="px-4 py-2 md:px-6 md:py-3 font-semibold bg-gradient-to-b from-[#FFE074] to-[#E3B512] text-white text-[16px] md:text-xl rounded cursor-pointer hover:bg-gradient-to-b hover:from-[#E3B512] hover:to-[#FFE074] hover:border-[#786A08] transition-all duration-200 ease-in-out"
         >
           Add Brand
         </div>
@@ -57,9 +63,16 @@ const Tab3 = () => {
           onDelete={handleDelete}
           enablePagination={true}
           rowsPerPage={4}
-          hasStatusColumn={true} // Show the Status column
+          hasStatusColumn={true} 
         />
       </div>
+
+      
+      <AddBrandModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSave={handleSaveBrand}
+      />
     </div>
   );
 };

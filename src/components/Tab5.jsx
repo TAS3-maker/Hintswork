@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import ReusableTable from './ReusableTable';
+import AddUserModal from './AddUserModal'; 
 
-const Tab4 = () => {
+const Tab5 = () => {
   const [data, setData] = useState([
     { userId: 'User0129', name: 'Jane Doe', email: 'jane.doe@example.com', rewards: 23, status: 'Active', id: 1 },
     { userId: 'User04883', name: 'John Sarha', email: 'john.sarha@example.com', rewards: 456, status: 'Inactive', id: 2 },
@@ -11,13 +12,14 @@ const Tab4 = () => {
     { userId: 'User3045', name: 'Michael Brown', email: 'michael.brown@example.com', rewards: 120, status: 'Inactive', id: 6 },
   ]);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const columns = [
     { header: 'UserId', accessor: 'userId' },
     { header: 'Name', accessor: 'name' },
     { header: 'Email', accessor: 'email' },
     { header: 'Rewards', accessor: 'rewards' },
     { header: 'Status', accessor: 'status' },
-    { header: 'Action', accessor: 'action' },  
   ];
 
   const handleEdit = (index) => {
@@ -30,25 +32,30 @@ const Tab4 = () => {
   };
 
   const handleAddUser = () => {
+    setIsModalOpen(true); 
+  };
+
+
+  const handleSaveUser = (formData) => {
     const newUser = {
-      userId: `User${Math.floor(Math.random() * 10000)}`,  // Random UserId generation
-      name: ['Jane Doe', 'John Sarha', 'Sarah Lee', 'David Smith', 'Mary Johnson', 'Michael Brown'][Math.floor(Math.random() * 6)],
-      email: `user${Math.floor(Math.random() * 10000)}@example.com`,  // Random email generation
-      rewards: Math.floor(Math.random() * 5000),  // Random rewards
+      userId: `User${Math.floor(Math.random() * 10000)}`,
+      name: `${formData.firstName} ${formData.lastName}`,
+      email: formData.email,
+      rewards: Math.floor(Math.random() * 1000),
       status: Math.random() > 0.5 ? 'Active' : 'Inactive',
       id: data.length + 1,
     };
-
     setData([...data, newUser]);
+    setIsModalOpen(false);
   };
 
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center mb-6">
-        <div className="text-4xl md:text-5xl font-semibold text-[#645200]">User</div>
+        <div className="text-2xl md:text-3xl font-semibold text-[#645200]">User</div>
         <div
           onClick={handleAddUser}
-          className="px-6 py-3 font-semibold bg-gradient-to-b from-[#FFE074] to-[#E3B512] text-white text-xl rounded cursor-pointer hover:bg-gradient-to-b hover:from-[#E3B512] hover:to-[#FFE074] hover:border-[#786A08] transition-all duration-200 ease-in-out"
+          className="px-4 py-2 md:px-6 md:py-3 font-semibold bg-gradient-to-b from-[#FFE074] to-[#E3B512] text-white text-[16px] md:text-xl rounded cursor-pointer hover:bg-gradient-to-b hover:from-[#E3B512] hover:to-[#FFE074] hover:border-[#786A08] transition-all duration-200 ease-in-out"
         >
           Add User
         </div>
@@ -62,11 +69,18 @@ const Tab4 = () => {
           onDelete={handleDelete}
           enablePagination={true}
           rowsPerPage={4}
-          hasStatusColumn={true} // Show the Status column
+          hasStatusColumn={true}
         />
       </div>
+
+    
+      <AddUserModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSave={handleSaveUser}
+      />
     </div>
   );
 };
 
-export default Tab4;
+export default Tab5;

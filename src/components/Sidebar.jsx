@@ -1,6 +1,6 @@
-import React from 'react';
-import {NavLink, Link } from 'react-router-dom';
-import { FaHome, FaUsers, FaUserShield, FaLightbulb, FaUserTie } from 'react-icons/fa';
+import React, { useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { FaTimes } from 'react-icons/fa'; 
 import HinsLogo from '../assets/hintslogo.svg';
 import Brandicon from '../assets/brand.svg';
 import Dashboardicon from '../assets/dashboard.svg';
@@ -9,48 +9,88 @@ import Sponsoricon from '../assets/sponsor.svg';
 import Hintslogo from '../assets/hintslogo.svg';
 import Usersicon from '../assets/users.svg';
 
-
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
+  const location = useLocation();
+
+  
+  useEffect(() => {
+    if (isSidebarOpen) {
+      toggleSidebar();
+    }
+   
+  }, [location.pathname]);
+
   return (
     <>
-      
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-opacity-50 z-10 md:hidden transition-opacity duration-300 ease-in-out"
+          className="fixed inset-0 bg-opacity-50 z-10 lg:hidden transition-opacity duration-300 ease-in-out"
           onClick={toggleSidebar}
         ></div>
       )}
 
       <div
-        className={`fixed top-0 left-0 h-full w-[284px] bg-[#ffedb1] text-[#796b0b] p-2.5 overflow-y-auto z-30 transform transition-transform duration-300 ease-in-out
+        className={`fixed top-0 left-0 h-screen w-[284px] bg-[#ffedb1] text-[#796b0b] p-2.5 overflow-y-auto z-30 transform transition-transform duration-300 ease-in-out
           ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} 
-          md:static md:translate-x-0 md:flex-shrink-0`}
+          lg:static lg:translate-x-0 lg:flex-shrink-0`}
       >
-        <img className='p-2.5 pb-4' src={Hintslogo} alt='hintlogo' />
-        <ul className='list-none p-0 pt-2 border-t-1 border-[#999999]'>
+       
+        <div className="flex justify-between items-center p-2.5 pb-4">
+          <img src={Hintslogo} alt="hintlogo" className="w-[150px]" />
+         
+          <div onClick={toggleSidebar} className="flex justify-center items-center w-[30px] h-[30px] border-2 border-[#796B0B] lg:hidden text-x text-[#796b0b] hover:text-[#b88a00] cursor-pointer rounded-full ">
+            <FaTimes />
+          </div>
+        </div>
+
+        <ul className='list-none p-0 pt-2 border-t border-[#999999]'>
           <li className="p-2.5 cursor-pointer flex items-center gap-2 text-[16px] font-semibold hover:text-[#c9a332]">
-            <Link to="/" className="!text-[#796B0B] w-full p-2.5 cursor-pointer flex items-center gap-2 text-[16px] font-semibold hover:!text-[#B88A00]" >
-              <img className='w-6 hover:fill-[#B88A00]' src={Dashboardicon} alt='dashboardicon' /> Dashboard
+            <Link
+              to="/"
+              onClick={toggleSidebar} 
+              className="!text-[#796B0B] w-full p-2.5 flex items-center gap-2 text-[16px] font-semibold hover:!text-[#B88A00]"
+            >
+              <img className='w-6' src={Dashboardicon} alt='dashboardicon' /> Dashboard
             </Link>
           </li>
+
           <li className="p-2.5 cursor-pointer flex items-center gap-2 text-[16px] font-semibold hover:text-[#c9a332]">
-            <Link to="/hints" className="!text-[#796B0B] w-full p-2.5 cursor-pointer flex items-center gap-2 text-[16px] font-semibold hover:!text-[#B88A00]">
-              <img className='w-6' src={Hinticon} alt='dashboardicon' /> Hints
+            <Link
+              to="/hints"
+              onClick={toggleSidebar}
+              className="!text-[#796B0B] w-full p-2.5 flex items-center gap-2 text-[16px] font-semibold hover:!text-[#B88A00]"
+            >
+              <img className='w-6' src={Hinticon} alt='hinticon' /> Hints
             </Link>
           </li>
+
           <li className="p-2.5 cursor-pointer flex items-center gap-2 text-[16px] font-semibold hover:text-[#c9a332]">
-            <Link to="/brands" className="!text-[#796B0B] w-full p-2.5 cursor-pointer flex items-center gap-2 text-[16px] font-semibold hover:!text-[#B88A00]">
-              <img  className='w-6' src={Brandicon} alt='dashboardicon' /> Brands
+            <Link
+              to="/brands"
+              onClick={toggleSidebar} 
+              className="!text-[#796B0B] w-full p-2.5 flex items-center gap-2 text-[16px] font-semibold hover:!text-[#B88A00]"
+            >
+              <img className='w-6' src={Brandicon} alt='brandicon' /> Brands
             </Link>
           </li>
+
           <li className="p-2.5 cursor-pointer flex items-center gap-2 text-[16px] font-semibold hover:text-[#c9a332]">
-            <Link to="/sponsors" className="!text-[#796B0B] w-full p-2.5 cursor-pointer flex items-center gap-2 text-[16px] font-semibold hover:!text-[#B88A00]">
-              <img className='w-6' src={Sponsoricon} alt='dashboardicon' /> Sponsors
+            <Link
+              to="/sponsors"
+              onClick={toggleSidebar} 
+              className="!text-[#796B0B] w-full p-2.5 flex items-center gap-2 text-[16px] font-semibold hover:!text-[#B88A00]"
+            >
+              <img className='w-6' src={Sponsoricon} alt='sponsoricon' /> Sponsors
             </Link>
           </li>
+
           <li className="p-2.5 cursor-pointer flex items-center gap-2 text-[16px] font-semibold hover:text-[#c9a332]">
-            <Link to="/users" className="!text-[#796B0B] w-full p-2.5 cursor-pointer flex items-center gap-2 text-[16px] font-semibold hover:!text-[#B88A00]">
-              <img className='w-6' src={Usersicon} alt='dashboardicon' /> Users
+            <Link
+              to="/users"
+              onClick={toggleSidebar}
+              className="!text-[#796B0B] w-full p-2.5 flex items-center gap-2 text-[16px] font-semibold hover:!text-[#B88A00]"
+            >
+              <img className='w-6' src={Usersicon} alt='usersicon' /> Users
             </Link>
           </li>
         </ul>

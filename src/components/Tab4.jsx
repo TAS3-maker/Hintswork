@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import ReusableTable from './ReusableTable';
+import AddSponsorModal from './AddSponsorModal';
 
-const Tab3 = () => {
+const Tab4 = () => {
   const [data, setData] = useState([
     { sponsorId: 1, tier: 'Gold', websiteUrl: 'sponsor.com', associatedBrands: 'Brand A', status: 'Active', id: 1 },
     { sponsorId: 2, tier: 'Silver', websiteUrl: 'sponsor.com', associatedBrands: 'Brand B', status: 'Inactive', id: 2 },
@@ -11,13 +12,14 @@ const Tab3 = () => {
     { sponsorId: 6, tier: 'Silver', websiteUrl: 'sponsor.com', associatedBrands: 'Brand B', status: 'Inactive', id: 6 },
   ]);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const columns = [
     { header: 'Sponsor Id', accessor: 'sponsorId' },
     { header: 'Tier', accessor: 'tier' },
     { header: 'Website Url', accessor: 'websiteUrl' },
     { header: 'Associated Brand', accessor: 'associatedBrands' },
     { header: 'Status', accessor: 'status' },
-    { header: 'Action', accessor: 'action' }, 
   ];
 
   const handleEdit = (index) => {
@@ -29,26 +31,30 @@ const Tab3 = () => {
     console.log('Delete clicked for index: ', index);
   };
 
-  const handleAddSponsor = () => {
-    const newSponsor = {
+  const handleAddSponsorClick = () => {
+    setIsModalOpen(true); 
+  };
+
+  const handleSaveSponsor = (newSponsor) => {
+    const sponsorToAdd = {
       sponsorId: data.length + 1,
-      tier: ['Gold', 'Silver', 'Platinum', 'Bronze'][Math.floor(Math.random() * 4)],
-      websiteUrl: 'sponsor.com',
-      associatedBrands: `Brand ${['A', 'B', 'C'][Math.floor(Math.random() * 3)]}`,
-      status: Math.random() > 0.5 ? 'Active' : 'Inactive',
+      tier: 'Gold',
+      websiteUrl: newSponsor.sponsorWebsite,
+      associatedBrands: newSponsor.selectedBrands,
+      status: 'Active',
       id: data.length + 1,
     };
-
-    setData([...data, newSponsor]);
+    setData([...data, sponsorToAdd]); 
+    setIsModalOpen(false);
   };
 
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center mb-6">
-        <div className="text-4xl md:text-5xl font-semibold text-[#645200]">List of Sponsors</div>
+        <div className="text-2xl md:text-3xl font-semibold text-[#645200]">List of Sponsors</div>
         <div
-          onClick={handleAddSponsor}
-          className="px-6 py-3 font-semibold bg-gradient-to-b from-[#FFE074] to-[#E3B512] text-white text-xl rounded cursor-pointer hover:bg-gradient-to-b hover:from-[#E3B512] hover:to-[#FFE074] hover:border-[#786A08] transition-all duration-200 ease-in-out"
+          onClick={handleAddSponsorClick}
+          className="px-4 py-2 md:px-6 md:py-3 font-semibold bg-gradient-to-b from-[#FFE074] to-[#E3B512] text-white text-[16px] md:text-xl rounded cursor-pointer hover:bg-gradient-to-b hover:from-[#E3B512] hover:to-[#FFE074] hover:border-[#786A08] transition-all duration-200 ease-in-out"
         >
           Add Sponsor
         </div>
@@ -62,11 +68,18 @@ const Tab3 = () => {
           onDelete={handleDelete}
           enablePagination={true}
           rowsPerPage={4}
-          hasStatusColumn={true} 
+          hasStatusColumn={true}
         />
       </div>
+
+     
+      <AddSponsorModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSave={handleSaveSponsor}
+      />
     </div>
   );
 };
 
-export default Tab3;
+export default Tab4;

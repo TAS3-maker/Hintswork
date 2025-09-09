@@ -51,16 +51,16 @@ const Tab1 = () => {
                     ))}
                 </div>
             </div>
-            <div className='progress-block flex bg-[#fff5d1] py-8 rounded-3xl shadow-md mt-10'>
-                <div className='circleprog-block w-1/2 pl-[23px] pr-6 border-r-4 border-[#FEDC63]'> 
+            <div className='progress-block flex flex-col lg:flex-row bg-[#fff5d1] py-8 rounded-3xl shadow-md mt-10'>
+                <div className='circleprog-block w-full lg:w-1/2 pl-[23px] pr-6 pb-6 lg:pb-0 border-b-4 lg:border-b-0 lg:border-r-4 border-[#FEDC63]'> 
                 <p className='text-[#796B0B] text-2xl font-medium leading-[48px]'>Hints Shared</p>  
-                    <div className='flex py-12 pl-12 pr-6 gap-4 justify-between items-center'>
+                    <div className='flex pl-0 md:pl-6 lg:pl-0 py-12 xl:pl-12 pr-6 gap-0 justify-between items-center'>
                      <div className=''>
                     <CircleProgress />
                       </div>
                     <div className="flex flex-col justify-between items-center h-full">
                         
-                        <div className="flex flex-col gap-1 pr-12">
+                        <div className="flex flex-col gap-1 pr-0 xl:pr-12">
                             {(showAllHints ? hintCategories : hintCategories.slice(0, 5)).map((hint, index) => (
                                 <div className="flex items-center gap-2" key={index}>
                                 <div className="w-2 h-2" style={{ backgroundColor: hint.color }}></div>
@@ -80,11 +80,11 @@ const Tab1 = () => {
                         </div>
                     </div>
                     </div>
-                    <div className='pl-16'>
+                    <div className='pl-0 xl:pl-16'>
                     < HintsGrid/>
                     </div>
                 </div>
-                <div className='barprog-block w-1/2 pl-6'>
+                <div className='barprog-block w-full lg:w-1/2 pl-6 pt-6 lg:pt-0'>
                 <p className='text-[#796B0B] text-2xl leading-[48px] font-medium'>Active Users</p>  
                    <div className='mt-[47px]'>
                     <BarProgress />

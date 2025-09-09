@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import ImageIcon from '../assets/imageicon.svg';
 import Editicon from '../assets/edit.svg';
 import HintDetailsPage from './HintDetailsPage';
-import AddBrandForm from './AddBrandForm'; 
+import AddBrandModal from './AddBrandModal';
+import AddHintsModal from './AddHintsModal'; // ✅ IMPORT FORM
 
 const Tab2 = () => {
   const [cards, setCards] = useState([
@@ -52,7 +53,8 @@ const Tab2 = () => {
     }, {})
   );
 
-  const [isAddBrandFormVisible, setIsAddBrandFormVisible] = useState(false); 
+  const [isAddBrandFormVisible, setIsAddBrandFormVisible] = useState(false);
+  const [isAddHintModalVisible, setIsAddHintModalVisible] = useState(false); // ✅ ADD MODAL STATE
 
   const handleCardClick = (card) => {
     setSelectedCard(card);
@@ -97,36 +99,37 @@ const Tab2 = () => {
     }));
   };
 
-
   const handleAddBrand = (newBrandData) => {
     setCards((prevCards) => [
       ...prevCards,
       {
-        id: prevCards.length + 1, 
+        id: prevCards.length + 1,
         title: newBrandData.brandName,
-        desc: newBrandData.shortDescription,
-        tableData: [], 
+        desc: newBrandData.description,
+        tableData: [],
       },
     ]);
-    setIsAddBrandFormVisible(false); 
+    setIsAddBrandFormVisible(false);
   };
 
+  const handleFileUpload = (file) => {
+    console.log('File uploaded:', file.name);
 
-  const handleCancelForm = () => {
-    setIsAddBrandFormVisible(false); 
+    // Example logic: Add a dummy hint to selected card after upload
+    if (selectedCard) {
+      const newHint = {
+        brand: selectedCard.title,
+        hint: `Hint from ${file.name}`,
+        sponsor: selectedCard.title,
+      };
+
+      setTableDataMap((prev) => ({
+        ...prev,
+        [selectedCard.id]: [...(prev[selectedCard.id] || []), newHint],
+      }));
+    }
   };
 
-  
-  if (isAddBrandFormVisible) {
-    return (
-      <AddBrandForm
-        onSubmit={handleAddBrand}
-        onCancel={handleCancelForm}
-      />
-    );
-  }
-
-  
   if (selectedCard) {
     return (
       <HintDetailsPage
@@ -142,16 +145,35 @@ const Tab2 = () => {
 
   return (
     <div className="p-6 space-y-6">
+      {isAddBrandFormVisible && (
+        <AddBrandModal
+          isOpen={isAddBrandFormVisible}
+          onClose={() => setIsAddBrandFormVisible(false)}
+          onSave={handleAddBrand}
+        />
+      )}
+
+      {isAddHintModalVisible && (
+        <AddHintsModal
+          isOpen={isAddHintModalVisible}
+          onClose={() => setIsAddHintModalVisible(false)}
+          onUpload={handleFileUpload}
+        />
+      )}
+
       <div className="flex flex-col lg:flex-row justify-between items-start gap-4 lg:items-center">
         <h2 className="text-3xl sm:text-5xl font-semibold text-[#786A08]">Hints</h2>
         <div className="space-x-0 mt-4 sm:mt-0 flex flex-wrap gap-3 justify-center">
           <button
-            onClick={() => setIsAddBrandFormVisible(true)} 
+            onClick={() => setIsAddBrandFormVisible(true)}
             className="px-4 py-2 sm:px-6 sm:py-4 font-semibold bg-gradient-to-b from-[#FFE074] to-[#E3B512] text-[#786A08] rounded hover:border-[#786A08]"
           >
             Add Brand
           </button>
-          <button className="px-4 py-2 sm:px-6 sm:py-4 font-semibold bg-gradient-to-b from-[#FFE074] to-[#E3B512] text-[#786A08] rounded hover:border-[#786A08]">
+          <button
+            onClick={() => setIsAddHintModalVisible(true)} 
+            className="px-4 py-2 sm:px-6 sm:py-4 font-semibold bg-gradient-to-b from-[#FFE074] to-[#E3B512] text-[#786A08] rounded hover:border-[#786A08]"
+          >
             Add Hint
           </button>
           <button className="px-4 py-2 sm:px-6 sm:py-4 font-semibold bg-gradient-to-b from-[#FFE074] to-[#E3B512] text-[#786A08] rounded hover:border-[#786A08]">
@@ -165,7 +187,7 @@ const Tab2 = () => {
           <div
             key={card.id}
             className="relative bg-[#FFFBEF] p-5 rounded-[8.5px] border-2 border-[#FFE891] shadow-md cursor-pointer hover:shadow-lg transition"
-            onClick={() => handleCardClick(card)} 
+            onClick={() => handleCardClick(card)}
           >
             <div className="flex justify-end text-[#796b0b] hover:text-[#bca719]">
               <img src={Editicon} alt="editicon" />
